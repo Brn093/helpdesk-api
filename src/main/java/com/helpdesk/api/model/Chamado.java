@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.time.LocalDate;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -12,43 +14,45 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.helpdesk.api.model.enumerator.Prioridade;
 import com.helpdesk.api.model.enumerator.Status;
 
+
 @Entity
 public class Chamado implements Serializable {
-	
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	
-	@JsonFormat(pattern ="dd/MM/yyyy")
+
+	@JsonFormat(pattern = "dd/MM/yyyy")
 	private LocalDate dataAbertura = LocalDate.now();
-	
-	@JsonFormat(pattern ="dd/MM/yyyy")
+	@JsonFormat(pattern = "dd/MM/yyyy")
 	private LocalDate dataFechamento;
-	
+
 	private Prioridade prioridade;
 	private Status status;
-	private String observacao;
-	
+	private String titulo;
+	private String observacoes;
+
 	@ManyToOne
 	@JoinColumn(name = "tecnico_id")
 	private Tecnico tecnico;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "cliente_id")
 	private Cliente cliente;
-	
-	public Chamado() {
-	}	
 
-	public Chamado(Integer id, LocalDate dataAbertura, LocalDate dataFechamento, Prioridade prioridade, Status status,
-			String observacao, Tecnico tecnico, Cliente cliente) {
+	public Chamado() {
+		super();
+	}
+
+	public Chamado(Integer id, Prioridade prioridade, Status status, String titulo, String observacoes, Tecnico tecnico,
+			Cliente cliente) {
+		super();
 		this.id = id;
-		this.dataAbertura = dataAbertura;
-		this.dataFechamento = dataFechamento;
 		this.prioridade = prioridade;
 		this.status = status;
-		this.observacao = observacao;
+		this.titulo = titulo;
+		this.observacoes = observacoes;
 		this.tecnico = tecnico;
 		this.cliente = cliente;
 	}
@@ -93,12 +97,20 @@ public class Chamado implements Serializable {
 		this.status = status;
 	}
 
-	public String getObservacao() {
-		return observacao;
+	public String getTitulo() {
+		return titulo;
 	}
 
-	public void setObservacao(String observacao) {
-		this.observacao = observacao;
+	public void setTitulo(String titulo) {
+		this.titulo = titulo;
+	}
+
+	public String getObservacoes() {
+		return observacoes;
+	}
+
+	public void setObservacoes(String observacoes) {
+		this.observacoes = observacoes;
 	}
 
 	public Tecnico getTecnico() {
@@ -141,5 +153,5 @@ public class Chamado implements Serializable {
 			return false;
 		return true;
 	}
-}
 
+}
