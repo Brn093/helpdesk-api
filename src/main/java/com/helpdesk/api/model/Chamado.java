@@ -1,24 +1,44 @@
 package com.helpdesk.api.model;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.helpdesk.api.model.enumerator.Prioridade;
 import com.helpdesk.api.model.enumerator.Status;
 
-public class Chamado {
+@Entity
+public class Chamado implements Serializable {
 	
+	private static final long serialVersionUID = 1L;
+	
+	@Id
 	private Integer id;
+	
+	@JsonFormat(pattern ="dd/MM/yyyy")
 	private LocalDate dataAbertura = LocalDate.now();
+	
+	@JsonFormat(pattern ="dd/MM/yyyy")
 	private LocalDate dataFechamento;
+	
 	private Prioridade prioridade;
 	private Status status;
 	private String observacao;
 	
+	@ManyToOne
+	@JoinColumn(name = "tecnico_id")
 	private Tecnico tecnico;
+	
+	@ManyToOne
+	@JoinColumn(name = "cliente_id")
 	private Cliente cliente;
 	
 	public Chamado() {
-		super();
 	}	
 
 	public Chamado(Integer id, LocalDate dataAbertura, LocalDate dataFechamento, Prioridade prioridade, Status status,
