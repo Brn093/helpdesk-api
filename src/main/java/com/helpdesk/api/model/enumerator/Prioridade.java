@@ -1,4 +1,4 @@
-package com.helpdesk.api.model;
+package com.helpdesk.api.model.enumerator;
 
 public enum Prioridade {
 	BAIXA(0, "BAIXA"),

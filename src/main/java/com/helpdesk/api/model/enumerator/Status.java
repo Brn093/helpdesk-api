@@ -1,14 +1,14 @@
-package com.helpdesk.api.model;
+package com.helpdesk.api.model.enumerator;
 
-public enum Perfil {
-	ADMIN(0, "ROLE_ADMIN"),
-	CLIENTE(1, "ROLE_CLIENTE"),
-	TECNICO(2, "ROLE_TECNICO");
+public enum Status {
+	ABERTO(0, "ABERTO"),
+	ANDAMENTO(1, "ANDAMENTO"),
+	ENCERRADO(2, "ENCERRADO");
 	
 	private Integer id;
 	private String descricao;
 	
-	private Perfil(Integer id, String descricao) {
+	private Status(Integer id, String descricao) {
 		this.id = id;
 		this.descricao = descricao;
 	}
@@ -29,17 +29,17 @@ public enum Perfil {
 		this.descricao = descricao;
 	}
 	
-	public static Perfil toEnum(Integer id) {
+	public static Status toEnum(Integer id) {
 		if(id == null) {
 			return null;
 		}
 		
-		for(Perfil x : Perfil.values()) {
+		for(Status x : Status.values()) {
 			if(id.equals(x.getId())) {
 				return x;
 			}
 		}
 		
-		throw new IllegalArgumentException("Perfil inválido");
+		throw new IllegalArgumentException("Status inválido");
 	}
 }
