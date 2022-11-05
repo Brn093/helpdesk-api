@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.helpdesk.api.exception.ObjectNotFoundException;
 import com.helpdesk.api.model.Tecnico;
+import com.helpdesk.api.model.dto.TecnicoDTO;
 import com.helpdesk.api.repository.TecnicoRepository;
 
 @Service
@@ -23,5 +24,11 @@ public class TecnicoService {
 
 	public List<Tecnico> findAll() {
 		return repository.findAll();
+	}
+
+	public Tecnico create(TecnicoDTO objDTO) {
+		objDTO.setId(null);
+		Tecnico objNovo = new Tecnico(objDTO);
+		return repository.save(objNovo);
 	}
 }

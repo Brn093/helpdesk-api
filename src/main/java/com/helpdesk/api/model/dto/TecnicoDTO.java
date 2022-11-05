@@ -12,28 +12,32 @@ import com.helpdesk.api.model.enumerator.Perfil;
 
 public class TecnicoDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
+
 	protected Integer id;
 	protected String nome;
 	protected String cpf;
-	protected String email;	
+	protected String email;
 	protected String senha;
 	protected Set<Integer> perfis = new HashSet<>();
-	
-	@JsonFormat(pattern ="dd/MM/yyyy")
-	protected LocalDate dataCricao = LocalDate.now();
+
+	@JsonFormat(pattern = "dd/MM/yyyy")
+	protected LocalDate dataCriacao = LocalDate.now();
 
 	public TecnicoDTO() {
+		super();
+		addPerfil(Perfil.CLIENTE);
 	}
 
 	public TecnicoDTO(Tecnico obj) {
+		super();
 		this.id = obj.getId();
 		this.nome = obj.getNome();
 		this.cpf = obj.getCpf();
 		this.email = obj.getEmail();
 		this.senha = obj.getSenha();
 		this.perfis = obj.getPerfis().stream().map(x -> x.getId()).collect(Collectors.toSet());
-		this.dataCricao = obj.getDataCricao();
+		this.dataCriacao = obj.getDataCriacao();
+		addPerfil(Perfil.CLIENTE);
 	}
 
 	public Integer getId() {
@@ -80,15 +84,16 @@ public class TecnicoDTO implements Serializable {
 		return perfis.stream().map(x -> Perfil.toEnum(x)).collect(Collectors.toSet());
 	}
 
-	public void addPerfis(Perfil perfil) {
+	public void addPerfil(Perfil perfil) {
 		this.perfis.add(perfil.getId());
 	}
 
-	public LocalDate getDataCricao() {
-		return dataCricao;
+	public LocalDate getDataCriacao() {
+		return dataCriacao;
 	}
 
-	public void setDataCricao(LocalDate dataCricao) {
-		this.dataCricao = dataCricao;
-	}	
+	public void setDataCriacao(LocalDate dataCriacao) {
+		this.dataCriacao = dataCriacao;
+	}
+
 }
