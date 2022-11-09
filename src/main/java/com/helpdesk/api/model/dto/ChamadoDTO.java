@@ -3,12 +3,10 @@ package com.helpdesk.api.model.dto;
 import java.io.Serializable;
 import java.time.LocalDate;
 
+import javax.validation.constraints.NotNull;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.helpdesk.api.model.Chamado;
-import com.helpdesk.api.model.Cliente;
-import com.helpdesk.api.model.Tecnico;
-import com.helpdesk.api.model.enumerator.Prioridade;
-import com.helpdesk.api.model.enumerator.Status;
 
 public class ChamadoDTO implements Serializable {
 
@@ -17,11 +15,17 @@ public class ChamadoDTO implements Serializable {
 	private LocalDate dataAbertura = LocalDate.now();
 	@JsonFormat(pattern = "dd/MM/yyyy")
 	private LocalDate dataFechamento;
+	@NotNull(message = "O campo PRIORIDADE é requerido")
 	private Integer prioridade;	// id da prioridade
+	@NotNull(message = "O campo STATUS é requerido")
 	private Integer status;
+	@NotNull(message = "O campo TÍTULO é requerido")
 	private String titulo;
+	@NotNull(message = "O campo OBSERVAÇÕES é requerido")
 	private String observacoes;
+	@NotNull(message = "O campo TÉCNICO é requerido")
 	private Integer tecnico;	// id do técnico
+	@NotNull(message = "O campo CLIENTE é requerido")
 	private Integer cliente;	// id do cliente
 	private String nomeTecnico;
 	private String nomeCliente;
