@@ -63,4 +63,13 @@ public class TecnicoService {
 			throw new DataIntegratyViolationException("E-mail já cadastrado no sistema!");
 		}		
 	}
+
+	public void delete(Integer id) {
+		Tecnico obj = findById(id);
+		
+		if(obj.getChamados().size() > 0) {
+			throw new DataIntegratyViolationException("Técnico possui ordens de serviço e não pode ser deletado!");
+		}
+		repository.deleteById(id);		
+	}
 }
